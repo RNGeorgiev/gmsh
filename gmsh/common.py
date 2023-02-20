@@ -7,7 +7,7 @@ import trimesh
 import numpy as np
 import multiprocessing as mp
 from matplotlib import pyplot as plt
-from gmsh_RNG.io import read as gread
+from .io import read as gread
 
 def restart_GMSH():
     """Shorthand to close a running instance of GMSH (if 
