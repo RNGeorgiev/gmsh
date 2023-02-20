@@ -1,0 +1,40 @@
+
+From q2d def get_walls(model,vol):
+    """Computes the normal of each surface and places each in one of
+    five groups, depending on the z-component NVz of said normal:
+        1) top walls (NVz = 1)
+        2) bottom walls (NVz = -1)
+        3) side walls (NVz = 0)
+        4) top edges (1 > NVz > 0)
+        5) bottom edges (-1 < NVz < 0)
+        
+    Parameters
+    ----------
+    model : class
+        Model containing the body.
+    vol : int
+        Volume tag of the body, whose surfaces are to be clasified.
+
+    Returns
+    -------
+    list
+        [list of top walls, list of bottom walls,
+         list of side walls,
+         list of top edges, list of bottom edges]
+    
+    """
+    surfs = model.getAdjacencies(3,vol)[1]
+    surfNVs = np.array([model.getNormal(i,[0.5,0.5]) for i in surfs])
+    tops = surfs[surfNVs[:,2]==1]
+    bots = surfs[surfNVs[:,2]==-1]
+    sides = surfs[surfNVs[:,2]==0]
+    edges = np.hstack((tops,bots,sides))
+    edges = np.setdiff1d(surfs,edges)
+    if len(edges):
+        edges = edges-1
+        top_edges = surfs[edges][surfNVs[edges,2]>0]
+        bot_edges = surfs[edges][surfNVs[edges,2]<0]
+    else:
+        top_edges = []
+        bot_edges = []
+    return list(map(list,[tops,bots,sides,top_edges,bot_edges]))
