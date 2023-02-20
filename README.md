@@ -1,6 +1,6 @@
 # GMSH geometries for active matter research
 
-## Common
+## Common (common.py)
 To-do
 
 ## IO (io.py)
