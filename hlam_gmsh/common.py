@@ -243,6 +243,7 @@ def meshing(model,ls,vol=-1):
         enum = enumerate([qs.mean(),qs.std(),qs.min()])
         dat = ' '.join([str(round(j,2))+stat[i] for i,j in enum])
         print('Element quality ('+k+'): '+dat)
+        plt.figure()
         plt.hist(qs,25)
         plt.xlabel('Element quality ('+k+')')
         plt.ylabel('Count (total: '+str(len(qs))+')')
