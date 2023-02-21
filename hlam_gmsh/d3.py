@@ -107,7 +107,7 @@ def dimer(k,rS=0.56,cyl=[1.85,0.20],ls=0,viz=True):
         Volume tag of the dimer.
     
     """
-    model,geo,mesh,_ = new_geometry()
+    model,geo,_ = new_geometry()
     bL = geo.addSphere(0,0,0,k*rS)
     bS = geo.addSphere(cyl[0],0,0,rS)
     cyl = geo.addCylinder(0,0,0,cyl[0],0,0,cyl[1])
@@ -156,7 +156,7 @@ def trimer(k,f,l=1,rS=0.56,cylUL=2*[[1.85,0.20]],ls=0,viz=True):
         Volume tag of the trimer.
     
     """
-    model,geo,mesh,_ = new_geometry()
+    model,geo,_ = new_geometry()
     bM,bU,bL = [geo.addSphere(0,0,0,i*rS) for i in [k,1,l]]
     cylU,cylL = [geo.addCylinder(0,0,0,i[0],0,0,i[1]) for i in cylUL]
     bM,bU,bL,cylU,cylL = list(zip(5*[3],[bM,bU,bL,cylU,cylL]))
