@@ -417,10 +417,9 @@ def dimer(k,Hp,rZ=0.1,rS=0.56,rd=[1.85,0.41],
     dXYZs = [[rd[0]*i,0,0] for i in [1,1/2]]
     dL,dS = [disk(i*rS,Hp,rZ,model,viz=False) for i in [k,1]]
     rd = rod(*rd,Hp,rZ,0,model,viz=False)
-    objs = enumerate(zip(2*[3],[dS,rd]))
-    foo = [geo.translate([j],*dXYZs[i]) for i,j in objs]
-    objs = list(zip(2*[3],[dS,rd]))
-    dimer = geo.fuse([(3,dL)],objs)[0]
+    objs = enumerate([dS,rd])
+    [geo.translate(j,*dXYZs[i]) for i,j in objs]
+    dimer = geo.fuse(dL,dS+rd)[0]
     geo.synchronize()
     grouping(model,dimer) if gs else None
     meshing(model,ls,dimer) if ls else None
@@ -481,12 +480,11 @@ def trimer(k,f,Hp,l=1,rZ=0.1,rS=0.56,rodUL=2*[[1.85,0.41]],
     dXYZs = np.transpose([dXYZs]+2*[4*[0]])
     dM,dU,dL = [disk(i*rS,Hp,rZ,model,viz=False) for i in [k,1,l]]
     rU,rL = [rod(*i,Hp,rZ,0,model,viz=False) for i in rodUL]
-    objs = enumerate(zip(4*[3],[dU,rU,dL,rL]))
-    foo = [geo.translate([j],*dXYZs[i]) for i,j in objs]
-    objs = list(zip(4*[3],[dU,rU,dL,rL]))
-    geo.rotate(objs[:2],0,0,0,0,0,1,f/360*pi)
-    geo.rotate(objs[2:],0,0,0,0,0,1,-f/360*pi)
-    trimer = geo.fuse([(3,dM)],objs)[0][0][1]
+    objs = enumerate(dU+rU+dL+rL)
+    [geo.translate([j],*dXYZs[i]) for i,j in objs]
+    geo.rotate(dU+rU,0,0,0,0,0,1,f/360*pi)
+    geo.rotate(dL+rL,0,0,0,0,0,1,-f/360*pi)
+    trimer = geo.fuse(dM,dU+dL+rU+rL)[0]
     geo.synchronize()
     grouping(model,trimer) if gs else None
     meshing(model,ls,trimer) if ls else None
