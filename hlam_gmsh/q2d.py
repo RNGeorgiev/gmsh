@@ -93,7 +93,7 @@ def fillet_Z(model,vol,rZ):
     geo = check_CAD(model)
     bases = sum(get_walls(model,vol)[:2],[])
     zEdges = np.abs(model.getBoundary(bases,False))[:,1]
-    filleted = geo.fillet([vol],zEdges,[rZ])[0][1]
+    filleted = geo.fillet([vol[0][1]],zEdges,[rZ])
     geo.synchronize()
     return filleted
 
@@ -119,7 +119,7 @@ def fillet_XY(model,vol,rXY):
     sides = get_walls(model,vol)[2]
     xyEdges = np.abs(bounds(sides,False))[:,1]
     xyEdges = np.setdiff1d(xyEdges,np.abs(bounds(sides))[:,1])
-    filleted = geo.fillet([vol],xyEdges,[rXY])[0][1]
+    filleted = geo.fillet([vol[0][1]],xyEdges,[rXY])
     geo.synchronize()
     return filleted
 
@@ -191,7 +191,7 @@ def disk(r,Hp,rZ=0,partOf=None,
     
     """
     model,geo = is_part_of(partOf)
-    cyl = geo.addCylinder(0,0,-Hp/2,0,0,Hp,r)
+    cyl = [(3,geo.addCylinder(0,0,-Hp/2,0,0,Hp,r))]
     cyl = fillets(model,cyl,rZ,0)
     grouping(model,cyl) if gs else None
     meshing(model,ls,cyl) if ls else None
@@ -242,11 +242,11 @@ def ring(R,r,Hp,rZ=0.1,partOf=None,
     """
     model,geo = is_part_of(partOf)
     if rZ>=((R-r)/2) or rZ>=Hp/2:
-        ring = geo.addTorus(0,0,0,(R+r)/2,(R-r)/2)
+        ring = [(3,geo.addTorus(0,0,0,(R+r)/2,(R-r)/2))]
     else:
-        cO = geo.addCylinder(0,0,-Hp/2,0,0,Hp,R)
-        cI = geo.addCylinder(0,0,-Hp/2,0,0,Hp,r)
-        ring = geo.cut([(3,cO)],[(3,cI)])[0][0][1]
+        cO = [(3,geo.addCylinder(0,0,-Hp/2,0,0,Hp,R))]
+        cI = [(3,geo.addCylinder(0,0,-Hp/2,0,0,Hp,r))]
+        ring = geo.cut(cO,cI)[0]
         ring = fillets(model,ring,rZ,0)
         grouping(model,ring) if gs else None
     geo.synchronize()
@@ -300,7 +300,7 @@ def rod(l,w,Hp,rZ=0,rXY=0,partOf=None,
     
     """
     model,geo = is_part_of(partOf)
-    box = geo.addBox(-l/2,-w/2,-Hp/2,l,w,Hp)
+    box = [(3,geo.addBox(-l/2,-w/2,-Hp/2,l,w,Hp))]
     box = fillets(model,box,rZ,rXY)
     grouping(model,box) if gs else None
     meshing(model,ls,box) if ls else None
