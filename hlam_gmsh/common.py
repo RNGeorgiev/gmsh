@@ -63,7 +63,8 @@ def new_geometry(occ=True):
 def check_CAD(model):
     """Determines the CAD kernel (OpenCASCADE or built-in) being used
     via the number of entities in both. As only one or the other is
-    usually used, only one of the two contains entities.
+    usually used, only one of the two contains entities. If both
+    kernals are empty, the function returns the OpenCASCADE kernel.
 
     Parameters
     ----------
@@ -78,8 +79,11 @@ def check_CAD(model):
     """
     occs = [model.occ.getMaxTag(i) for i in range(4)]
     geos = [model.geo.getMaxTag(i) for i in range(4)]
-    flag = np.argwhere(np.any([occs,geos],1))[0,0]
-    kernel = model.geo if flag else model.occ
+    if sum(occs+geos):
+        flag = np.argwhere(np.any([occs,geos],1))[0,0]
+        kernel = model.geo if flag else model.occ
+    else:
+        kernel = model.occ
     return kernel
 
 def is_part_of(model):

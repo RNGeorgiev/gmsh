@@ -364,7 +364,7 @@ def prism(R,a,Hp,rZ=0,rXY=0,partOf=None,
     ps = [p1,p3,p2,p1]
     lines = [geo.addLine(ps[i],ps[i+1]) for i in range(3)]
     bottom = geo.addPlaneSurface([geo.addCurveLoop(lines)])
-    prism = geo.extrude([(2,bottom)],0,0,Hp)[1][1]
+    prism = geo.extrude([(2,bottom)],0,0,Hp)[1:2]
     prism = fillets(model,prism,rZ,rXY)
     grouping(model,prism) if gs else None
     meshing(model,ls,prism) if ls else None
@@ -420,7 +420,7 @@ def dimer(k,Hp,rZ=0.1,rS=0.56,rd=[1.85,0.41],
     objs = enumerate(zip(2*[3],[dS,rd]))
     foo = [geo.translate([j],*dXYZs[i]) for i,j in objs]
     objs = list(zip(2*[3],[dS,rd]))
-    dimer = geo.fuse([(3,dL)],objs)[0][0][1]
+    dimer = geo.fuse([(3,dL)],objs)[0]
     geo.synchronize()
     grouping(model,dimer) if gs else None
     meshing(model,ls,dimer) if ls else None
