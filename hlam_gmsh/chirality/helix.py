@@ -135,15 +135,15 @@ def chunk(model,ps,rng,spring):
     
     """
     geo = check_CAD(model)
-    neigh = model.getAdjacencies
+    bounds = model.getBoundary
     bb = geo.addWire([geo.addBSpline(ps[slice(*rng)])])
-    pipeA = geo.addPipe([(2,spring[1][-1])],bb,'Frenet')[0][1]
-    pipeP = geo.addPipe([(2,spring[4][-1])],bb,'Frenet')[0][1]
+    pipeA = geo.addPipe(spring[1][-1:],bb,'Frenet')
+    pipeP = geo.addPipe(spring[3][-1:],bb,'Frenet')
     geo.synchronize()
-    pipeA = np.hstack(([pipeA],neigh(3,pipeA)[1][[-1,1]]))
-    pipeP = np.hstack(([pipeP],neigh(3,pipeP)[1][[-1,1]]))
-    pipe = np.hstack([pipeA,pipeP])
-    foo = [spring[i].append(j) for i,j in enumerate(pipe)]
+    pipeA = [bounds(pipeA)[i] for i in [1,-1]]
+    pipeP = [bounds(pipeP)[i] for i in [1,-1]]
+    pipe = enumerate(map(tuple,np.abs(pipeA+pipeP)))
+    [spring[i].append(j) for i,j in pipe]
     return spring
 
 def end_cap(model,geo,r,xyz,xi,spring):

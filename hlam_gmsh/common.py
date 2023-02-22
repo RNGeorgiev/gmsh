@@ -7,7 +7,7 @@ import trimesh
 import numpy as np
 import multiprocessing as mp
 from matplotlib import pyplot as plt
-from .io import read as gread
+from .tools import read as gread
 
 def restart_GMSH():
     """Shorthand to close a running instance of GMSH (if 
@@ -129,10 +129,17 @@ def vis(restart=False,file=None):
 
 def eval_on_surf(model,surfs,f,x0=0.25,y0=0.25):
     """Shorthand to evaluate the function f on surfaces surfs,
-    using scaled coordinates [x0,y0], each spanning [0,1]. One
-    can evaluate the normal at [x0,y0] with the key words
-    'normal' and 'nv' or the XYZ coordinates of a point with
-    the key words 'value' and 'val'.
+    using scaled coordinates [x0,y0], each spanning [0,1].
+    The function f is determined through key words:
+    =====================================================
+    Key word             | Function f evaluted at [x0,y0]
+    =====================================================
+    'nv' or 'normal'     | Normal vector
+    -----------------------------------------------------
+    '1/r' or 'curvature' | Curvature
+    -----------------------------------------------------
+    'value' or 'val'     | XYZ coordinates
+    =====================================================
 
     Parameters
     ----------
@@ -158,7 +165,8 @@ def eval_on_surf(model,surfs,f,x0=0.25,y0=0.25):
     surfs = [(2,surfs)] if isinstance(surfs,int) else surfs
     surfs = [surfs] if isinstance(surfs,tuple) else surfs
     fDict = {'nv':model.getNormal,'normal':model.getNormal,
-             'val':model.getValue,'value':model.getValue}
+             '1/r':model.getCurvature,'val':model.getValue,
+             'value':model.getValue,'curvature':model.getCurvature}
     for surf in np.abs(surfs):
         bounds = model.getParametrizationBounds(*surf)
         x = bounds[1][0]*x0+(1-x0)*bounds[0][0]
@@ -166,7 +174,7 @@ def eval_on_surf(model,surfs,f,x0=0.25,y0=0.25):
         pars = list(surf)+[[x,y]]
         pars = pars[1:] if f in ['nv','normal'] else pars
         res.append(fDict[f](*pars))
-    return np.array(res)
+    return np.squeeze(res)
 
 def entities_in_vol(model,vol):
     """Generates the dimensional tags for all surfaces,
