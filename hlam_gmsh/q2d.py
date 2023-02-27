@@ -148,15 +148,15 @@ def fillets(model,vol,rZ,rXY):
     vol = fillet_Z(model,vol,rZ) if rZ else vol
     return vol
 
-def disk(r,Hp,rZ=0,partOf=None,
-         ls=0,gs=False,viz=True):
-    """Generates a model of a cylinder of radius r and thickness
-    Hp, centered at (0,0,0). The edges of the cylinder can be
-    rounded off with a fillet radius of rZ. The disk can be part
-    of a complex body by supplying model as partOf.
+def disk(r,H,rZ=0,partOf=None,
+         ls=0,viz=True):
+    """Generates a model of a cylinder of radius r and thickness H,
+    centered at (0,0,0). The edges of the cylinder can be rounded
+    off with a fillet radius of rZ. The disk can be part of a
+    complex body by supplying model as partOf.
     
     Can also be used to create a pill-like particle when rZ=r and
-    Hp>2r.
+    H>2r.
     
     Optionally, meshes the disk, writes the mesh, and visualizes is.
 
@@ -164,7 +164,7 @@ def disk(r,Hp,rZ=0,partOf=None,
     ----------
     r : float
         Cylinder radius.
-    Hp : float
+    H : float
         Particle thickness.
     rZ : float, default=0
         Rounding radius for all edges on surfaces normal to the z-axis.
@@ -191,17 +191,17 @@ def disk(r,Hp,rZ=0,partOf=None,
     
     """
     model,geo = is_part_of(partOf)
-    cyl = [(3,geo.addCylinder(0,0,-Hp/2,0,0,Hp,r))]
+    cyl = [(3,geo.addCylinder(0,0,-H/2,0,0,H,r))]
     cyl = fillets(model,cyl,rZ,0)
-    grouping(model,cyl) if gs else None
+    grouping(model,cyl)
     meshing(model,ls,cyl) if ls else None
     vis() if viz else None
     return cyl
 
-def ring(R,r,Hp,rZ=0.1,partOf=None,
-         ls=0,gs=False,viz=True):
+def ring(R,r,H,rZ=0.1,partOf=None,
+         ls=0,viz=True):
     """Generates a model of a ring centered at (0,0,0) with an outer
-    radius R, inner radius r and thickness Hp. The edges of the ring
+    radius R, inner radius r and thickness H. The edges of the ring
     can be rounded off with a fillet radius of rZ. The ring becomes a
     torus if the rounding radius is too large. The ring can be a part
     of a complex body by supplying model as partOf.
@@ -214,7 +214,7 @@ def ring(R,r,Hp,rZ=0.1,partOf=None,
         Outer radius.
     r : float
         Inner radius.
-    Hp : float
+    H : float
         Particle thickness.
     rZ : float, default=0
         Rounding radius for all edges on surfaces normal to the z-axis.
@@ -241,11 +241,11 @@ def ring(R,r,Hp,rZ=0.1,partOf=None,
     
     """
     model,geo = is_part_of(partOf)
-    if rZ>=((R-r)/2) or rZ>=Hp/2:
+    if rZ>=((R-r)/2) or rZ>=H/2:
         ring = [(3,geo.addTorus(0,0,0,(R+r)/2,(R-r)/2))]
     else:
-        cO = [(3,geo.addCylinder(0,0,-Hp/2,0,0,Hp,R))]
-        cI = [(3,geo.addCylinder(0,0,-Hp/2,0,0,Hp,r))]
+        cO = [(3,geo.addCylinder(0,0,-H/2,0,0,H,R))]
+        cI = [(3,geo.addCylinder(0,0,-H/2,0,0,H,r))]
         ring = geo.cut(cO,cI)[0]
         ring = fillets(model,ring,rZ,0)
         grouping(model,ring) if gs else None
@@ -254,11 +254,11 @@ def ring(R,r,Hp,rZ=0.1,partOf=None,
     vis() if viz else None
     return ring
 
-def rod(l,w,Hp,rZ=0,rXY=0,partOf=None,
-        ls=0,gs=False,viz=True):
+def rod(l,w,H,rZ=0,rXY=0,partOf=None,
+        ls=0,viz=True):
     """Generates a model of a rod of lenght l (along thex-axis)
     and width w (along the y-axis). The rod is centered at (0,0,0)
-    and its thickness is Hp. All edges of the rod can be rounded off.
+    and its thickness is H. All edges of the rod can be rounded off.
     Edges normal to the xy-plane are filleted with a radius rXY and
     edges parallel to it are filleted with a radius rZ. The rod can
     be a part of a complex body by supplying model as partOf.
@@ -271,7 +271,7 @@ def rod(l,w,Hp,rZ=0,rXY=0,partOf=None,
         Rod length.
     w : float
         Rod width.
-    Hp : float
+    H : float
         Particle thickness.
     rZ : float, default=0
         Rounding radius for all edges normal to the the z-axis.
@@ -300,22 +300,22 @@ def rod(l,w,Hp,rZ=0,rXY=0,partOf=None,
     
     """
     model,geo = is_part_of(partOf)
-    box = [(3,geo.addBox(-l/2,-w/2,-Hp/2,l,w,Hp))]
+    box = [(3,geo.addBox(-l/2,-w/2,-H/2,l,w,H))]
     box = fillets(model,box,rZ,rXY)
     grouping(model,box) if gs else None
     meshing(model,ls,box) if ls else None
     vis() if viz else None
     return box
 
-def prism(R,a,Hp,rZ=0,rXY=0,partOf=None,
-          ls=0,gs=False,viz=True):
+def prism(R,a,H,rZ=0,rXY=0,partOf=None,
+          ls=0,viz=True):
     """Generates a model of a prism centered at (0,0,0) and inscribed
     in a circle or radius R. The prism base is an isosceles triangle
     with angle between the equal sides a. All edges of the prism can
     be rounded off. Edges normal to the xy-plane are filleted with
     a radius rXY and edges parallel to it are filleted with a radius
     rZ. The in-plane rounding does not change the radius of the
-    escribing circle. The height of the prism is Hp. The prism can be
+    escribing circle. The height of the prism is H. The prism can be
     a part of a complex body by supplying model as partOf.
     
     Optionally, meshes the prism, writes the mesh, and visualizes is.
@@ -326,7 +326,7 @@ def prism(R,a,Hp,rZ=0,rXY=0,partOf=None,
         Radius of the escribing circle.
     a : float
         Angle between the two equal sides in degrees.
-    Hp : float
+    H : float
         Particle thickness.
     rZ : float, default=0
         Rounding radius for all edges normal to the z-axis.
@@ -358,25 +358,25 @@ def prism(R,a,Hp,rZ=0,rXY=0,partOf=None,
     p1X = R+rXY*(1/sin(a/360*pi)-1)
     dx = (R-rXY)*sin(pi*(1/2-a/180))+rXY
     dy = tan(a/360*pi)*(p1X+dx)
-    p1 = geo.addPoint(p1X,0,-Hp/2)
-    p2 = geo.addPoint(-dx,dy,-Hp/2)
-    p3 = geo.addPoint(-dx,-dy,-Hp/2)
+    p1 = geo.addPoint(p1X,0,-H/2)
+    p2 = geo.addPoint(-dx,dy,-H/2)
+    p3 = geo.addPoint(-dx,-dy,-H/2)
     ps = [p1,p3,p2,p1]
     lines = [geo.addLine(ps[i],ps[i+1]) for i in range(3)]
     bottom = geo.addPlaneSurface([geo.addCurveLoop(lines)])
-    prism = geo.extrude([(2,bottom)],0,0,Hp)[1:2]
+    prism = geo.extrude([(2,bottom)],0,0,H)[1:2]
     prism = fillets(model,prism,rZ,rXY)
     grouping(model,prism) if gs else None
     meshing(model,ls,prism) if ls else None
     vis(0) if viz else None
     return prism
 
-def dimer(k,Hp,rZ=0.1,rS=0.56,rd=[1.85,0.41],
-          ls=0,gs=False,viz=True):
+def dimer(k,H,rZ=0.1,rS=0.56,rd=[1.85,0.41],
+          ls=0,viz=True):
     """Generates a q2D dimer comprising a large cylinder of radius
     k*rS and a small cylinder of radius rS connected via a rod of
     length rd[0] and width rd[1]. All three bodies have a thickness
-    Hp. The large cylinder is centered at (0,0,0). The long axis of
+    H. The large cylinder is centered at (0,0,0). The long axis of
     the rod is parallel to the x-axis. The edges of the cylinders
     and the rod can be rounded off with a fillet radius of rZ.
     
@@ -386,7 +386,7 @@ def dimer(k,Hp,rZ=0.1,rS=0.56,rd=[1.85,0.41],
     ----------
     k : float
         Ratio of the two cylinder radii.
-    Hp : float
+    H : float
         Particle thickness.
     rZ : float, default=0.1
         Rounding radius for all edges normal to the z-axis.
@@ -415,8 +415,8 @@ def dimer(k,Hp,rZ=0.1,rS=0.56,rd=[1.85,0.41],
     """
     model,geo,_ = new_geometry()
     dXYZs = [[rd[0]*i,0,0] for i in [1,1/2]]
-    dL,dS = [disk(i*rS,Hp,rZ,model,viz=False) for i in [k,1]]
-    rd = rod(*rd,Hp,rZ,0,model,viz=False)
+    dL,dS = [disk(i*rS,H,rZ,model,viz=False) for i in [k,1]]
+    rd = rod(*rd,H,rZ,0,model,viz=False)
     objs = enumerate([dS,rd])
     [geo.translate(j,*dXYZs[i]) for i,j in objs]
     dimer = geo.fuse(dL,dS+rd)[0]
@@ -426,8 +426,8 @@ def dimer(k,Hp,rZ=0.1,rS=0.56,rd=[1.85,0.41],
     vis() if viz else None
     return dimer
 
-def trimer(k,f,Hp,l=1,rZ=0.1,rS=0.56,rodUL=2*[[1.85,0.41]],
-           ls=0,gs=False,viz=True):
+def trimer(k,f,H,l=1,rZ=0.1,rS=0.56,rodUL=2*[[1.85,0.41]],
+           ls=0,viz=True):
     """Generates a q2D trimer (L--M--U) comprising a cylinder
     M of radius k*rS, centered at (0,0,0), between two other cylinders.
     The angle between the three cylinders (LMU) is given by f. Cylinder
@@ -435,7 +435,7 @@ def trimer(k,f,Hp,l=1,rZ=0.1,rS=0.56,rodUL=2*[[1.85,0.41]],
     are connected via a rod MU with length rodUL[0][0] and width
     rod UL[0][1]. Cylinders M and L are connected via a rod ML with
     length rodUL[1][0] and radius rodUL[1][1]. All five bodies have a
-    thickness Hp. The edges of the cylinders and the rods can be rounded
+    thickness H. The edges of the cylinders and the rods can be rounded
     off with a fillet radius of rZ.
  
     Optionally, meshes the model, writes the mesh, and visualizes is.
@@ -446,7 +446,7 @@ def trimer(k,f,Hp,l=1,rZ=0.1,rS=0.56,rodUL=2*[[1.85,0.41]],
         Ratio of cylinder M's radius to cylinder U's radius.
     f : float
         Angle between the three cylinders (L-M-U) in degrees.
-    Hp : float
+    H : float
         Particle thickness.
     l : float
         Ratio of cylinder L's radius to cylinder U's radius.
@@ -478,8 +478,8 @@ def trimer(k,f,Hp,l=1,rZ=0.1,rS=0.56,rodUL=2*[[1.85,0.41]],
     model,geo,_ = new_geometry()
     dXYZs = sum([[i[0],i[0]/2] for i in rodUL],[])
     dXYZs = np.transpose([dXYZs]+2*[4*[0]])
-    dM,dU,dL = [disk(i*rS,Hp,rZ,model,viz=False) for i in [k,1,l]]
-    rU,rL = [rod(*i,Hp,rZ,0,model,viz=False) for i in rodUL]
+    dM,dU,dL = [disk(i*rS,H,rZ,model,viz=False) for i in [k,1,l]]
+    rU,rL = [rod(*i,H,rZ,0,model,viz=False) for i in rodUL]
     objs = enumerate(dU+rU+dL+rL)
     [geo.translate([j],*dXYZs[i]) for i,j in objs]
     geo.rotate(dU+rU,0,0,0,0,0,1,f/360*pi)

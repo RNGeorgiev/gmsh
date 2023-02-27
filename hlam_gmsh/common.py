@@ -164,6 +164,7 @@ def eval_on_surf(model,surfs,f,x0=0.25,y0=0.25):
     res = []
     surfs = [(2,surfs)] if isinstance(surfs,int) else surfs
     surfs = [surfs] if isinstance(surfs,tuple) else surfs
+    surfs = list(map(tuple,np.abs(surfs)))
     fDict = {'nv':model.getNormal,'normal':model.getNormal,
              '1/r':model.getCurvature,'val':model.getValue,
              'value':model.getValue,'curvature':model.getCurvature}
