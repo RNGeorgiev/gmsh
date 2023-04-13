@@ -1,0 +1,30 @@
+    Determines how the activities or the mobilities are computed
+    depending on the type of `rule`:
+        1) Integers and floats trigger mesh.f_via_float
+        2) Dictionaries trigger mesh.f_via_dict
+        3) Strings trigger mesh.f_via_str
+    The arguments of the current function are passed to the triggered
+    mesh.f_via_*. The number of nodes in `ps` is P and the number
+    of elements in `es` is E.
+
+    Parameters
+    ----------
+    rule : int, float, dict or str
+        Activity (or mobility) at the nodes and/or elements.
+    ps : P-by-3 numpy array
+        XYZ-coordinates of nodes.
+    es : E-by-6 numpy array
+        Node indices per element.
+    gEs : dict
+        Contains pairs of physical group names and arrays of element
+        indices falling into the respective physical group.
+
+    Returns
+    -------
+    P-by-1 numpy array, E-by-1 numpy array
+        Activities (or mobilities) at the nodes and at the elements.
+
+    Raises
+    ------
+    Exception
+        If rule is not an int, a float, a string, or a dict.

@@ -1,0 +1,22 @@
+    Exports an array of nodes `ps` and an array of second-order
+    triangles `es` as a GMSH 2.2 *.msh file to path `fileName`.
+    If a dictionary `gs` is passed, the elements are partitioned
+    into physical groups. The dictionary `gs` must contain the names of
+    physical groups as keys and arrays with element indices as values.
+    The number of nodes is P and the number of elements is E.
+
+    Parameters
+    ----------
+    fileName : str
+        Path to which the GMSH 2.2 *.msh file is written.
+    ps : P-by-3 numpy array
+        XYZ-coordinates of nodes.
+    es : E-by-6 numpy array
+        Node indices per element.
+    gs : dict, default=None
+        Contains pairs of physical group names and arrays of element
+        indices falling into the respective physical group.
+
+    Returns
+    -------
+    None

@@ -1,0 +1,19 @@
+    Sets the activities (or mobilities) of all nodes and elements
+    to `f`.
+
+    Parameters
+    ----------
+    f : int or float
+        Activity (or mobility) of all nodes and elements.
+    ps : P-by-3 numpy array
+        XYZ-coordinates of nodes.
+    es : E-by-6 numpy array
+        Node indices per element.
+    gEs : dict
+        Contains pairs of physical group names and arrays of element
+        indices falling into the respective physical group.
+
+    Returns
+    -------
+    P-by-1 numpy array, E-by-1 numpy array
+        Activities (or mobilities) at the nodes and at the elements.

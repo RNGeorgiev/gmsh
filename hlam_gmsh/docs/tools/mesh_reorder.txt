@@ -1,0 +1,22 @@
+    Reorders the nodes in `ps` and elements in `es` by proximity
+    starting from (one of) the most connected node(s). The number of
+    nodes is P, the number of elements is E and the maximum
+    connectivity of any node is M.
+
+    Parameters
+    ----------
+    ps : P-by-3 numpy array
+        XYZ-coordinates of nodes.
+    es : E-by-6 numpy array
+        Node indices per element.
+    ndInAt : N-by-(2 * M + 1) numpy array
+        Node-in-element map.
+
+    Returns
+    -------
+    ps : P-by-3 numpy array
+        XYZ-coordinates of nodes, reordered by proximity.
+    es : E-by-6 numpy array
+        Node indices per element after reordering.
+    idxEs : numpy array
+        Maps the reordered node indices to the original node indices.

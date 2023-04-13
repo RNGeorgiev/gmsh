@@ -1,0 +1,17 @@
+    A simplified version of mesh.read, which takes the file
+    path `mshFile` and returns only the XYZ-coordinates of the
+    nodes and the element array, containing node indices. The
+    total number of the returned nodes is P and the total number
+    of elements is E. The nodes and elements are not reordered.
+
+    Parameters
+    ----------
+    mshFile : str
+        Path to a MSH 2.2 *.msh file.
+
+    Returns
+    -------
+    ps : P-by-3 numpy array
+        XYZ-coordinates of the nodes
+    es : E-by-6 numpy array
+        Node indices per element

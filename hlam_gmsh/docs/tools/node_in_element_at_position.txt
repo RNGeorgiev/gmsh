@@ -1,0 +1,18 @@
+    Generates a connectivity table in the form of a numpy array.
+    Each row corresponds to a node number (e.g. 0th row -> 0th node,
+    1st row -> 1st node, etc.). The first column of the connectivity
+    table contains the number of elements a node is part of. The
+    following columns contain the element number and position within
+    the element in an alternating fashion. Partially filled rows are
+    padded with negative unity.
+
+    Parameters
+    ----------
+    es : N-by-6 numpy array
+        Each row contains the six nodes each element comprises.
+
+    Returns
+    -------
+    numpy array
+        Connectivity table with occurances, element indices and
+        element positons.

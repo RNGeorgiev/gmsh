@@ -1,0 +1,17 @@
+    Converts a pandas DataFrame `df` into space-delimited text,
+    representing a GMSH 2.2 section named `key`. Optionally, the
+    number of section entries is included after the section name.
+
+    Parameters
+    ----------
+    df : pandas DataFrame
+        Data to be converted to text.
+    key : str
+        GMSH 2.2 section name.
+    N : bool, default=True
+        Whether to include the number of section entries.
+
+    Returns
+    -------
+    str
+        GMSH 2.2 section string.

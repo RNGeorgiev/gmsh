@@ -1,0 +1,28 @@
+    Evaluates `f` and sets the nodal activities (or mobilities)
+    according to the function in `f`. The string `f` may contain
+    'xs', 'ys', and 'zs', which denote the x-, y-, and z-coordinates
+    of the nodes. The activity (or mobility) at each element is the
+    mean activity (or mobility) of its nodes.
+
+    Example:
+        '[1 if x > 0 else 0 for x in xs]' -- sets the activity
+        (or mobility) of all nodes with positive x-coodinates
+        to unity. All other acitivites (or mobilities) are set
+        to zero.
+
+    Parameters
+    ----------
+    f : str
+        String with function to be evaluated.
+    ps : P-by-3 numpy array
+        XYZ-coordinates of nodes.
+    es : E-by-6 numpy array
+        Node indices per element.
+    gEs : dict
+        Contains pairs of physical group names and arrays of element
+        indices falling into the respective physical group.
+
+    Returns
+    -------
+    P-by-1 numpy array, E-by-1 numpy array
+        Activities (or mobilities) at the nodes and at the elements.

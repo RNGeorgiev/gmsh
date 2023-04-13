@@ -1,0 +1,13 @@
+    Creates one physical surfaces, which includes all surfaces in the 
+    model.
+
+    Parameters
+    ----------
+    model : class
+        Model containing the surfaces to be grouped.
+    vol : int, tuple, or dimTag
+        Volume whose surfaces will be grouped.
+
+    Returns
+    -------
+    None

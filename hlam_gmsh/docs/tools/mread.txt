@@ -1,0 +1,57 @@
+    Extracts the nodes and second-order elements from a GMSH 2.2
+    *.msh file in path `mshFile`. If the file contains physical
+    groups, extracts the group names and partitions the elements
+    by group. Using the types of `acts` and `mobs`, computes the
+    activities and mobilities at both the nodes and the elements.
+    Additionally, reorders the nodes and elements by proximity (see
+    mesh.mesh_reorder).
+
+    Parameters
+    ----------
+    mshFile : str
+        Path to a MSH 2.2 *.msh file.
+    acts : int, float, str or dict
+        Rule to assign activities at the nodes and elements.
+        For details, see mesh.f_from_var.
+    mobs : int, float, str or dict
+        Rule to assign mobilities to the nodes and elements.
+        For details, see mesh.f_from_var.
+
+    Returns
+    -------
+    msh : dict
+        Each value has a full-length and an abbreviated key. The
+        former is followed by the latter in parantheses in the
+        descriptions below i.e. full-length (abbreviated).
+
+        number_of_points (nPs): int
+            Total number of mesh nodes.
+        number_of_elements (nEs) : int
+            Total number of second-order triangular mesh elements.
+        points (ps) : nPs-by-3 numpy array
+            XYZ-coordinates of the nodes.
+        elements (es) : nEs-by-6 numpy array
+            The first three entries in each row i are the vertices of
+            the corresponding i-th element ordered so that the element
+            has an outward orientation relative to the mesh. The last
+            three entries are the midpoints of each element edge.
+        groups_of_elements (gEs): dict
+            Each key represents a physical group and the corresponding
+            value is a numpy array with the indices of the elements in
+            that group.
+        point_activities (aPs): nPs-by-1 numpy array
+            The normal derivative of a driving potential (chemical
+            gradient, AC electric field, etc.) at each node.
+        point_mobilities (mPs): nPs-by-1 numpy array
+            The inverse resistance to tangential changes in a driving
+            potential (chemical gradient, AC electric field, etc.) at
+            each node.
+        element_activities (aEs): nEs-by-1 numpy array
+            Element equivalent of `point_activities`.
+        element_mobilities (mEs): nEs-by-1 numpy array
+            Element equivalent of `point_mobilities`.
+
+    Raises
+    ------
+    Exception
+        If there are points, which are not part of any element.

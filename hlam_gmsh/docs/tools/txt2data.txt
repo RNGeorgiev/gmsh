@@ -1,0 +1,16 @@
+    Extracts section data from a line-separated GMSH 2.2 *.msh
+    file `msh`. The name of the section is given by `key`.
+
+    Parameters
+    ----------
+    msh : list
+        Lines of a GMSH 2.2 *.msh file.
+    key : str
+        Section name. Can be Nodes, Elements, or PhysicalNames.
+
+    Returns
+    -------
+    pandas DataFrame
+        Section data
+    int
+        Number of entries in the section.

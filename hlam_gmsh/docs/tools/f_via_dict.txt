@@ -1,0 +1,25 @@
+    For a set of physical groups with names `gEs.keys()`, sets
+    the activity (or mobility) of the elements in a given group
+    to the value in `f` with the same key. Elements in groups, whose
+    name is not in `f.keys()`, have activities (or mobilities) of zero.
+    By default, the activity (or mobility) at a node is the average
+    activity (or mobility) at the elements containing the node. This
+    value can be rounded up (with numpy.ceil) or rouned down (with
+    numpy.floor) if `f` contains a {'method': numpy.ufunc} pair.
+
+    Parameters
+    ----------
+    f : dict
+        Activity (or mobility) per physical group of elements.
+    ps : P-by-3 numpy array
+        XYZ-coordinates of nodes.
+    es : E-by-6 numpy array
+        Node indices per element.
+    gEs : dict
+        Contains pairs of physical group names and arrays of element
+        indices falling into the respective physical group.
+
+    Returns
+    -------
+    P-by-1 numpy array, E-by-1 numpy array
+        Activities (or mobilities) at the nodes and at the elements.

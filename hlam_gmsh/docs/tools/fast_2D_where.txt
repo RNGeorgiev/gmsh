@@ -1,0 +1,20 @@
+    Finds the positions of all non-negative integers in a
+    two-dimensional array.
+
+    Parameters
+    ----------
+    a : two-dimensional numpy array
+        Array in which the unique entries are mapped.
+    rows : bool, default=True
+        Whether to output the numbers of the rows each entry is in.
+    cols : bool, default=True
+        Whether to output the numbers of the columns each entry is in.
+
+    Returns
+    -------
+    ls : numpy array
+        Number of occurances for each value
+    out : list
+        Depending on `rows` and `cols`:
+            Numpy arrays with row numbers where each value appears
+            Numpy arrays with column numbers where each value appears
