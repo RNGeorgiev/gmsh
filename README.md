@@ -1,4 +1,6 @@
 # GMSH geometries for active matter research
+A collection of functions utilizing the GMSH Python API to generate models and meshes of asymmetric
+particles used in quasi-2D flow and active matter studies.
 
 ## Common (common.py)
 Common functions used by the other modules.
