@@ -14,6 +14,8 @@ High-level functions to generate dimers and trimers comprising
 spheres and cylinders.
 
 ## Quasi-two-dimensional bodies (q2d.py)
+High-level functions to generate quasi-2D dimers and trimers comprising
+disks and rods with rounded edges.
 
 ## Corrugated walls (wavywall.py)
 

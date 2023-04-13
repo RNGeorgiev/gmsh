@@ -6,6 +6,8 @@ comprising spheres and cylinders.
 from math import pi
 from .common import new_geometry, meshing, vis, is_part_of
 
+PATH = os.path.split(__file__)
+
 def ball(r, partOf=None, ls=0, viz=False):
     model,geo = is_part_of(partOf)
     ball = [(3, geo.addSphere(0, 0, 0, r))]
@@ -53,3 +55,10 @@ def trimer(k, f, l=1, rS=0.56, cylUL=2 * [[1.85, 0.20]],
     if ls: meshing(model,ls,trimer)
     if viz: vis()
     return trimer
+
+## Docstrings for functions in this module ###
+funcs = [ball, spheroid, dimer, trimer]
+path = os.path.join(PATH[0], 'docs', PATH[1][:-3], '')
+for i in funcs:
+    with open(path + i.__name__ + '.txt', 'r') as f:
+        i.__doc__ = f.read()
