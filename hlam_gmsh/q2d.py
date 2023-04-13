@@ -68,8 +68,8 @@ def grouping(model,vol):
     """
     walls = get_walls(model,vol)
     gs = [model.addPhysicalGroup(2,np.array(i)[:,1]) for i in walls]
-    ns = ['Top base','Bottom base','Sides']
-    ns = enumerate(ns+['Top edge','Bottom edge'])
+    ns = ['Top_base','Bottom_base','Sides']
+    ns = enumerate(ns+['Top_edge','Bottom_edge'])
     foo = [model.setPhysicalName(2,gs[i],j) for i,j in ns]
     return
 
@@ -148,7 +148,7 @@ def fillets(model,vol,rZ,rXY):
     vol = fillet_Z(model,vol,rZ) if rZ else vol
     return vol
 
-def disk(r,H,rZ=0,partOf=None,
+def disk(r,H,rZ=0,partOf=None,gs=False,
          ls=0,viz=True):
     """Generates a model of a cylinder of radius r and thickness H,
     centered at (0,0,0). The edges of the cylinder can be rounded
@@ -193,12 +193,12 @@ def disk(r,H,rZ=0,partOf=None,
     model,geo = is_part_of(partOf)
     cyl = [(3,geo.addCylinder(0,0,-H/2,0,0,H,r))]
     cyl = fillets(model,cyl,rZ,0)
-    grouping(model,cyl)
+    grouping(model,cyl) if gs else None
     meshing(model,ls,cyl) if ls else None
     vis() if viz else None
     return cyl
 
-def ring(R,r,H,rZ=0.1,partOf=None,
+def ring(R,r,H,rZ=0.1,partOf=None,gs=False,
          ls=0,viz=True):
     """Generates a model of a ring centered at (0,0,0) with an outer
     radius R, inner radius r and thickness H. The edges of the ring
@@ -250,11 +250,12 @@ def ring(R,r,H,rZ=0.1,partOf=None,
         ring = fillets(model,ring,rZ,0)
         grouping(model,ring) if gs else None
     geo.synchronize()
+    grouping(model,ring) if gs else None
     meshing(model,ls,ring) if ls else None
     vis() if viz else None
     return ring
 
-def rod(l,w,H,rZ=0,rXY=0,partOf=None,
+def rod(l,w,H,rZ=0,rXY=0,partOf=None,gs=False,
         ls=0,viz=True):
     """Generates a model of a rod of lenght l (along thex-axis)
     and width w (along the y-axis). The rod is centered at (0,0,0)
@@ -307,7 +308,7 @@ def rod(l,w,H,rZ=0,rXY=0,partOf=None,
     vis() if viz else None
     return box
 
-def prism(R,a,H,rZ=0,rXY=0,partOf=None,
+def prism(R,a,H,rZ=0,rXY=0,partOf=None,gs=False,
           ls=0,viz=True):
     """Generates a model of a prism centered at (0,0,0) and inscribed
     in a circle or radius R. The prism base is an isosceles triangle
@@ -371,7 +372,7 @@ def prism(R,a,H,rZ=0,rXY=0,partOf=None,
     vis(0) if viz else None
     return prism
 
-def dimer(k,H,rZ=0.1,rS=0.56,rd=[1.85,0.41],
+def dimer(k,H,rZ=0.1,rS=0.56,rd=[1.85,0.41],gs=True,
           ls=0,viz=True):
     """Generates a q2D dimer comprising a large cylinder of radius
     k*rS and a small cylinder of radius rS connected via a rod of
@@ -399,7 +400,7 @@ def dimer(k,H,rZ=0.1,rS=0.56,rd=[1.85,0.41],
         a list, containing a float and a string, sets the maximum
         element size to the float and exports a GMSH 2.2 *.msh file
         using string as name.
-    gs : bool, default=False
+    gs : bool, default=True
         A flag, which assigns physical groups to the:
             1) bases (surfaces normal to the z-axis)
             2) sides (surfaces normal to the xy-plane)
@@ -426,7 +427,7 @@ def dimer(k,H,rZ=0.1,rS=0.56,rd=[1.85,0.41],
     vis() if viz else None
     return dimer
 
-def trimer(k,f,H,l=1,rZ=0.1,rS=0.56,rodUL=2*[[1.85,0.41]],
+def trimer(k,f,H,l=1,rZ=0.1,rS=0.56,rodUL=2*[[1.85,0.41]],gs=True,
            ls=0,viz=True):
     """Generates a q2D trimer (L--M--U) comprising a cylinder
     M of radius k*rS, centered at (0,0,0), between two other cylinders.
@@ -461,7 +462,7 @@ def trimer(k,f,H,l=1,rZ=0.1,rS=0.56,rodUL=2*[[1.85,0.41]],
         a list, containing a float and a string, sets the maximum
         element size to the float and exports a GMSH 2.2 *.msh file
         using string as name.
-    gs : bool, default=False
+    gs : bool, default=True
         A flag, which assigns physical groups to the:
             1) bases (surfaces normal to the z-axis)
             2) sides (surfaces normal to the xy-plane)

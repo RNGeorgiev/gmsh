@@ -1,7 +1,7 @@
 # GMSH geometries for active matter research
 
 ## Common (common.py)
-To-do
+Common functions used by the other modules.
 
 ## Tools (tools.py)
 To-do 2
@@ -12,8 +12,8 @@ To-do 2
 
 ## Corrugated walls (wavywall.py)
 
-## Helical swimmer (chirality/helix )
+## Helical swimmer (helix.py)
 
-## Spiral spheroid (chirality/spiral)
+## Spiral spheroid (spiral.py)
 
 
