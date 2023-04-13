@@ -8,7 +8,10 @@
         Radius of the sphere.
     partOf: class, default=None
         Determines if the ball is part of a complex shape. For details,
-        see common.is_part_of()
+        see common.is_part_of
+    gs : bool, default=True
+        Determines if the surface of the ball should be placed in a
+        physical group 'Surface'. For details, see common.unify_surfs
     ls : float or list, default=0
         If `ls` is a float it sets the maximum mesh size. If `ls` is
         a list, containing a float and a string, sets the maximum

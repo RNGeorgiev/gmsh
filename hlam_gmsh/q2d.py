@@ -3,10 +3,11 @@ comprising disks and rods with rounded edges.
 
 """
 
+import os
 from math import sin, pi, tan
 import numpy as np
 from .common import is_part_of, meshing, vis, new_geometry
-from .common import eval_on_surf, check_CAD
+from .common import eval_on_surf, check_CAD, unify_surfs
 
 PATH = os.path.split(__file__)
 
@@ -76,6 +77,7 @@ def ring(R, r, H, rZ=0.1, partOf=None,
     model, geo = is_part_of(partOf)
     if rZ >= ((R - r) / 2) or rZ >= H / 2:
         ring = [(3, geo.addTorus(0, 0, 0, (R + r) / 2, (R - r) / 2))]
+        if gs: unify_surfs(model, ring)
     else:
         cO = [(3, geo.addCylinder(0, 0, -H / 2, 0, 0, H, R))]
         cI = [(3, geo.addCylinder(0, 0, -H / 2, 0, 0, H, r))]

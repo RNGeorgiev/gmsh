@@ -1,1 +1,2 @@
 eval_surf:normal,coordinates,curvature//nv,xyz,1/r
+mesh:points,elements,number_of_points,number_of_elements,groups_of_elements,point_activities,point_mobilities,element_activities,element_mobilities//ps,es,nPs,nEs,gEs,aPs,mPs,aEs,mEs

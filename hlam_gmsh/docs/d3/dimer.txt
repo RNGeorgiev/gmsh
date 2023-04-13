@@ -12,6 +12,9 @@
         Radius of the smaller sphere.
     cyl: list, default=[1.85, 0.20]
         [Length, Radius] of the connecting cylinder.
+    gs : bool, default=True
+        Determines if the surfaces of the dimer should be placed in a
+        physical group 'Surface'. For details, see common.unify_surfs
     ls : float or list, default=0
         If `ls` is a float it sets the maximum mesh size. If `ls` is
         a list, containing a float and a string, sets the maximum

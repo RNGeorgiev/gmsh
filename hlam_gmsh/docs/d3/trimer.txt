@@ -1,4 +1,4 @@
-	Generates a model of a trimer (L--M--U) comprising a sphere M
+    Generates a model of a trimer (L--M--U) comprising a sphere M
     of radius `k` * `rS`, centered at (0, 0, 0), between two other
     spheres. The angle the three spheres form (LMU) is `f`. Sphere U
     has radius `rS` and sphere L has radius `l` * `rS`. Spheres M and U
@@ -20,6 +20,9 @@
     cylUL : list, default=[[1.85, 0.20], [1.85, 0.20]]
         [[Length, Radius] of cylinder MU,
         [Length, Radius] of cylinder LU].
+    gs : bool, default=True
+        Determines if the surfaces of the trimer should be placed in a
+        physical group 'Surface'. For details, see common.unify_surfs
     ls : float or list, default=0
         If `ls` is a float it sets the maximum mesh size. If `ls` is
         a list, containing a float and a string, sets the maximum

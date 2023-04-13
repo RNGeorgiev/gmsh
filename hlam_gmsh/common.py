@@ -7,7 +7,7 @@ import trimesh
 import numpy as np
 import multiprocessing as mp
 from matplotlib import pyplot as plt
-from .tools import read as gread
+from .tools import basic_read
 
 PATH = os.path.split(__file__)
 
@@ -93,6 +93,13 @@ def entities_in_vol(model, vol):
     xyz = np.array([model.getValue(*i, []) for i in points])
     return surfs, lines, points, xyz
 
+def unify_surfs(model, vol):
+    geo = check_CAD(model)
+    geo.synchronize()
+    surfs = np.array(entities_in_vol(model, vol)[0])
+    model.addPhysicalGroup(2, surfs[:, 1], -1, 'Surface')
+    return
+
 def meshing(model, ls, vol=-1):
     writing, mesh = False, model.mesh
     mesh.generate(2)
@@ -121,7 +128,7 @@ def meshing(model, ls, vol=-1):
         plt.xlabel(f'Element quality ({k})')
         plt.ylabel(f'Count (total: {len(es)})')
     if writing:
-        ps, elms, _ = gread(name, 0)[:3]
+        ps, elms = basic_read(name)
     else:
         elms = mesh.get_elements(2)[2][0].reshape(-1, 6) - 1
     flatTris = [[0, 3, 5], [1, 4, 3], [2, 5, 4], [3, 4, 5]]
