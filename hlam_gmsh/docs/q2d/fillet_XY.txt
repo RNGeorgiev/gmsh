@@ -1,0 +1,15 @@
+    Fillets all edges normal to the xy-plane.
+
+    Parameters
+    ----------
+    model : class
+        Model, containing the body.
+    vol : int
+        Volume tag of the body, whose edges are filleted.
+    rXY : float
+        Rounding radius for all edges normal to the xy-plane.
+
+    Returns
+    -------
+    filleted : int
+        Volume tag of the filleted body.

@@ -1,0 +1,23 @@
+    Shorthand to restart GMSH (see common. restart_GMSH) and generate
+    a list of commonly used classes, namely:
+    1) model
+    2) geometry (refered to as geo in the package)
+    4) options (refered to as opts in the package)
+    The function sets the number of GMSH threads to the maximum
+    available and enables parallelized geometry computations if the
+    OpenCASCADE kernel is used.
+
+    Parameters
+    ----------
+    occ : bool, default=True
+        A flag denoting the CAD kernel to be used: OpenCASCADE if True,
+        otherwise the built-in GMSH kernel.
+
+    Returns
+    -------
+    model: class
+        Model class.
+    geo : class
+        Geometry class.
+    opts : class
+        Options class.

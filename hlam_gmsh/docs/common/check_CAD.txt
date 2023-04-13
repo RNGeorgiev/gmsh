@@ -1,0 +1,14 @@
+    Determines the CAD kernel (OpenCASCADE or built-in) being used
+    via the number of entities in both. As only one or the other is
+    usually used, only one of the two contains entities. If both
+    kernals are empty, the function returns the OpenCASCADE kernel.
+
+    Parameters
+    ----------
+    model : class
+        Model, in which the CAD kernel is determined.
+
+    Returns
+    -------
+    geo : class
+        The active CAD kernel.

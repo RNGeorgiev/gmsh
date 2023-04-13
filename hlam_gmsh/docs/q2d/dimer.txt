@@ -1,0 +1,38 @@
+    Generates a q2D dimer comprising a large cylinder of radius
+    `k` * `rS` and a small cylinder of radius `rS` connected via a rod
+    of length `rd`[0] and width `rd`[1]. All three bodies have a
+    thickness `H`. The large cylinder is centered at (0, 0, 0). The
+    long axis of the rod is parallel to the x-axis. The edges of the
+    cylinders and the rod can be rounded off with a fillet radius of
+    `rZ`.
+    Optionally, meshes the dimer, writes the mesh, and visualizes is.
+
+    Parameters
+    ----------
+    k : float
+        Ratio of the two cylinder radii.
+    H : float
+        Particle thickness.
+    rZ : float, default=0.1
+        Rounding radius for all edges normal to the z-axis.
+    rS : float, default=0.56
+        Radius of the smaller cylinder.
+    rd: list, default=[1.85, 0.41]
+        [Length, Width] of the connecting rod.
+    gs : bool, default=True
+        A flag, which assigns physical groups to the:
+            1) bases (surfaces normal to the z-axis)
+            2) sides (surfaces normal to the xy-plane)
+            3) edges (surfaces which are neither bases, nor sides)
+    ls : float or list, default=0
+        If `ls` is a float it sets the maximum mesh size. If `ls` is
+        a list, containing a float and a string, sets the maximum
+        element size to the float and exports a GMSH 2.2 *.msh file
+        using string as name.
+    viz : bool, default=False
+        A flag controlling visualisation.
+
+    Returns
+    -------
+    dimer : int
+        Volume tag of the dimer.

@@ -1,0 +1,20 @@
+    Meshes the current model, checks if the mesh is watertight, outputs
+    a 3D model with bad faces (if any), and prints quality of element
+    statistics such as mean, st. deviation, worst, and a histogram.
+
+    Parameters
+    ----------
+    model : class
+        Model to be meshed.
+    ls : float or list
+        If `ls` is a float it sets the maximum mesh size.
+        If `ls` is a list, containing a float and a string, sets the
+        maximum element size to the float and exports a GMSH 2.2 *.msh
+        file using string as name.
+    vol : int, tuple, or dimTag, default=-1
+        Body for which the normals of each element are set to
+        point outward.
+
+    Returns
+    -------
+    None

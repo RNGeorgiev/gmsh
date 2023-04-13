@@ -1,0 +1,25 @@
+    Generates a model of a (0, 0, 0)-centered spheroid with one
+    semiaxis r in the xy-plane and another semi-axis c*r, normal to it.
+    Optionally, meshes the model, writes the mesh, and visualizes is.
+
+    Parameters
+    ----------
+    r : float
+        Semi-axis in the xy-plane.
+    c : float
+        Ratio between the two semi-axes.
+    partOf: model, default=None
+        Determines if the spheroid is part of a complex shape.
+        For details, see common.is_part_of()
+    ls : float or list, default=0
+        If `ls` is a float it sets the maximum mesh size. If `ls` is
+        a list, containing a float and a string, sets the maximum
+        element size to the float and exports a GMSH 2.2 *.msh file
+        using string as name.
+    viz : bool, default=False
+        A flag controlling visualisation.
+
+    Returns
+    -------
+    spheroid : int
+        Volume tag of the spheroid.

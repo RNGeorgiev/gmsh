@@ -1,0 +1,1 @@
+eval_surf:normal,coordinates,curvature//nv,xyz,1/r

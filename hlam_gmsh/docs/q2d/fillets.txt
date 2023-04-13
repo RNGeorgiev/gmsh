@@ -1,0 +1,17 @@
+    Shorthand to fillet edges of `vol` in `model`.
+
+    Parameters
+    ----------
+    model : type
+        Model, containing the body.
+    vol : int
+        Voume tag of the body.
+    rZ : float
+        Rounding radius for all edges on surfaces normal to the z-axis.
+    rXY : float
+        Rounding radius for all edges normal to the xy-plane.
+
+    Returns
+    -------
+    vol : int
+        Volume tag of the filleted body.

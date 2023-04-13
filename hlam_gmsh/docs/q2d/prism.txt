@@ -1,0 +1,43 @@
+    Generates a model of a prism centered at (0, 0, 0) and inscribed
+    in a circle or radius `R`. The prism base is an isosceles triangle
+    with angle `a` in degrees between the equal sides. All edges of the
+    prism can be rounded off. Edges, normal to the xy-plane, are
+    filleted with a radius `rXY` and edges, parallel to it, are
+    filleted with a radius `rZ`. The in-plane rounding does not change
+    the radius of the escribing circle. The height of the prism is `H`.
+    The prism can be a part of a complex body by supplying a model
+    class as `partOf`.
+    Optionally, meshes the prism, writes the mesh, and visualizes is.
+
+    Parameters
+    ----------
+    R : float
+        Radius of the escribing circle.
+    a : float
+        Angle between the two equal sides in degrees.
+    H : float
+        Particle thickness.
+    rZ : float, default=0
+        Rounding radius for all edges normal to the z-axis.
+    rXY : float, default=0
+        Rounding radius for all edges normal to the xy-plane.
+    partOf: class, default=None
+        Determines if the prism is part of a complex shape.
+        For details, see common.is_part_of().
+    gs : bool, default=False
+        A flag, which assigns physical groups to the:
+            1) bases (surfaces normal to the z-axis)
+            2) sides (surfaces normal to the xy-plane)
+            3) edges (surfaces which are neither bases, nor sides)
+    ls : float or list, default=0
+        If ls is a float it sets the maximum mesh size. If ls is
+        a list, containing a float and a string, sets the maximum
+        element size to the float and exports a GMSH 2.2 *.msh file
+        using string as name.
+    viz : bool, default=False
+        A flag controlling visualisation.
+
+    Returns
+    -------
+    prism : int
+        Volume tag of the prism.

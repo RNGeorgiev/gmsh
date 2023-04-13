@@ -1,0 +1,45 @@
+    Generates a q2D trimer (L--M--U) comprising a cylinder M of
+    radius `k` * `rS`, centered at (0, 0, 0), between two other
+    cylinders. The angle `f` formed by the three cylinders (LMU) is
+    given in degrees. Cylinder U has radius `rS` and cylinder L has
+    radius `l` * `rS`. Cylinders M and U are connected via a rod MU
+    with length `rodUL`[0][0] and width `rod UL`[0][1]. Cylinders M
+    and L are connected via a rod ML with length `rodUL`[1][0] and
+    radius `rodUL`[1][1]. All five bodies have a thickness `H`. The
+    edges of the cylinders and the rods can be rounded off with a
+    fillet radius of `rZ`.
+    Optionally, meshes the model, writes the mesh, and visualizes is.
+
+    Parameters
+    ----------
+    k : float
+        Ratio of cylinder M's radius to cylinder U's radius.
+    f : float
+        Angle between the three cylinders (L-M-U) in degrees.
+    H : float
+        Particle thickness.
+    l : float
+        Ratio of cylinder L's radius to cylinder U's radius.
+    rZ : float, default=0.1
+        Rounding radius for all edges normal to the z-axis.
+    rS : float, default=0.56
+        Radius of cylinder U.
+    rodUL : list, default=[[1.85, 0.41], [1.85, 0.41]]
+        [[Length, Width] of rod MU, [Length, Width] of cylinder ML].
+    gs : bool, default=True
+        A flag, which assigns physical groups to the:
+            1) bases (surfaces normal to the z-axis)
+            2) sides (surfaces normal to the xy-plane)
+            3) edges (surfaces which are neither bases, nor sides)
+    ls : float or list, default=0
+        If `ls` is a float it sets the maximum mesh size. If `ls` is
+        a list, containing a float and a string, sets the maximum
+        element size to the float and exports a GMSH 2.2 *.msh file
+        using string as name.
+    viz : bool, default=False
+        A flag controlling visualisation.
+
+    Returns
+    -------
+    timer : int
+        Volume tag of the trimer.

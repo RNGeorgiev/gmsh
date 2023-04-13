@@ -1,0 +1,23 @@
+    Shorthand to generate a model of a (0, 0, 0)-centered sphere
+    with radius r. Optionally, meshes the model, writes the mesh,
+    and visualizes is.
+
+    Parameters
+    ----------
+    r : float
+        Radius of the sphere.
+    partOf: class, default=None
+        Determines if the ball is part of a complex shape. For details,
+        see common.is_part_of()
+    ls : float or list, default=0
+        If `ls` is a float it sets the maximum mesh size. If `ls` is
+        a list, containing a float and a string, sets the maximum
+        element size to the float and exports a GMSH 2.2 *.msh file
+        using string as name.
+    viz : bool, default=False
+        A flag controlling visualisation.
+
+    Returns
+    -------
+    ball : int
+        Volume tag of the ball.

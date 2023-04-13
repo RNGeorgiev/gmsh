@@ -1,0 +1,40 @@
+    Generates a model of a rod of lenght `l` (along the x-axis) and
+    width `w` (along the y-axis). The rod is centered at (0, 0, 0)
+    and its thickness is `H`. All edges of the rod can be rounded off.
+    Edges, normal to the xy-plane, are filleted with a radius `rXY` and
+    edges, parallel to it, are filleted with a radius `rZ`. The rod can
+    be a part of a complex body by supplying a model class as `partOf`.
+    Optionally, meshes the rod, writes the mesh, and visualizes is.
+
+    Parameters
+    ----------
+    l : float
+        Rod length.
+    w : float
+        Rod width.
+    H : float
+        Particle thickness.
+    rZ : float, default=0.1
+        Rounding radius for all edges normal to the the z-axis.
+    rXY : float, default=0.1
+        Rounding radius for all edges normal to the xy-plane.
+    partOf: class, default=None
+        Determines if the rod is part of a complex shape.
+        For details, see common.is_part_of()
+    gs : bool, default=False
+        A flag, which assigns physical groups to the:
+            1) bases (surfaces normal to the z-axis)
+            2) sides (surfaces normal to the xy-plane)
+            3) edges (surfaces which are neither bases, nor sides)
+    ls : float or list, default=0
+        If ls is a float it sets the maximum mesh size. If ls is
+        a list, containing a float and a string, sets the maximum
+        element size to the float and exports a GMSH 2.2 *.msh file
+        using string as name.
+    viz : bool, default=False
+        A flag controlling visualisation.
+
+    Returns
+    -------
+    box : int
+        Volume tag of the rod.

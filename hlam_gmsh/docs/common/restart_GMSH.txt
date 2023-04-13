@@ -1,0 +1,10 @@
+    Shorthand to close a running instance of GMSH (if there is one),
+    and starts a new one.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    None

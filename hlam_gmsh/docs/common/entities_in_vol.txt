@@ -1,0 +1,22 @@
+    Generates the dimensional tags for all surfaces, all lines and
+    all points inside a body `vol`, part of `model`. Additionally,
+    evaluates the XYZ coordinates of all points (total number: P).
+
+    Parameters
+    ----------
+    model : class
+        Model containing the volume to be evaluated.
+    vol : int, tuple, or dimTag
+        Volume to be evaluated.
+
+    Returns
+    -------
+    surfs : list
+        Surface dimTags (list of tuples, where the first number in
+        each tuple is the dimension and the second is the tag number).
+    lines : list
+        Line dimTags.
+    points : list
+        Point dimTags.
+    xyz : P-by-3 numpy array
+        Coordinates of all geometry points.

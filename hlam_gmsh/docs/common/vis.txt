@@ -1,0 +1,12 @@
+    Shorthand to launch the GMSH GUI.
+
+    Parameters
+    ----------
+    restart : bool, default=False
+        A flag determining whether to executes restart_GMSH or not.
+    file : str, default=None
+        Import and visualize a .msh file.
+
+    Returns
+    -------
+    None

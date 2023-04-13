@@ -1,0 +1,37 @@
+    Generates a model of a ring centered at (0, 0, 0) with an outer
+    radius `R`, inner radius `r` and thickness `H`. The edges of the
+    ring can be rounded off with a fillet radius of rZ. The ring
+    becomes a torus if the rounding radius is too large. The ring can
+    be a part of a complex body by supplying a model class as `partOf`.
+    Optionally, meshes the ring, writes the mesh, and visualizes is.
+
+    Parameters
+    ----------
+    R : float
+        Outer radius.
+    r : float
+        Inner radius.
+    H : float
+        Particle thickness.
+    rZ : float, default=0.1
+        Rounding radius for all edges on surfaces normal to the z-axis.
+    partOf: class, default=None
+        Determines if the ring is part of a complex shape.
+        For details, see common.is_part_of()
+    gs : bool, default=False
+        A flag, which assigns physical groups to the:
+            1) bases (surfaces normal to the z-axis)
+            2) sides (surfaces normal to the xy-plane)
+            3) edges (surfaces which are neither bases, nor sides)
+    ls : float or list, default=0
+        If `ls` is a float it sets the maximum mesh size. If `ls` is
+        a list, containing a float and a string, sets the maximum
+        element size to the float and exports a GMSH 2.2 *.msh file
+        using string as name.
+    viz : bool, default=False
+        A flag controlling visualisation.
+
+    Returns
+    -------
+    ring : int
+        Volume tag of the ring.

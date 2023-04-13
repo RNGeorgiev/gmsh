@@ -1,0 +1,34 @@
+	Generates a model of a trimer (L--M--U) comprising a sphere M
+    of radius `k` * `rS`, centered at (0, 0, 0), between two other
+    spheres. The angle the three spheres form (LMU) is `f`. Sphere U
+    has radius `rS` and sphere L has radius `l` * `rS`. Spheres M and U
+    are connected via a cylinder MU with length `cylUL`[0][0] and
+    radius `cylUL`[0][1]. Spheres M and L are connected via a cylinder
+    ML with length `cylUL`[1][0] and radius `cylUL`[1][1]
+    Optionally, meshes the model, writes the mesh, and visualizes is.
+
+    Parameters
+    ----------
+    k : float
+        Ratio of sphere M's radius to sphere U's radius.
+    f : float
+        Angle formed by the three spheres (L-M-U) in degrees.
+    l : float
+        Ratio of sphere L's radius to sphere U's radius.
+    rS : float, default=0.56
+        Radius of sphere U.
+    cylUL : list, default=[[1.85, 0.20], [1.85, 0.20]]
+        [[Length, Radius] of cylinder MU,
+        [Length, Radius] of cylinder LU].
+    ls : float or list, default=0
+        If `ls` is a float it sets the maximum mesh size. If `ls` is
+        a list, containing a float and a string, sets the maximum
+        element size to the float and exports a GMSH 2.2 *.msh file
+        using string as name.
+    viz : bool, default=False
+        A flag controlling visualisation.
+
+    Returns
+    -------
+    trimer : int
+        Volume tag of the trimer.

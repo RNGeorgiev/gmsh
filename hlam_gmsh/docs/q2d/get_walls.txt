@@ -1,0 +1,21 @@
+    Computes the normal of each surface and places each in one of
+    five groups, depending on the z-component NVz of said normal:
+        1) top walls (NVz = 1)
+        2) bottom walls (NVz = -1)
+        3) side walls (NVz = 0)
+        4) top edges (1 > NVz > 0)
+        5) bottom edges (-1 < NVz < 0)
+
+    Parameters
+    ----------
+    model : class
+        Model, containing the body.
+    vol : int, tuple, or dimTag
+        Volume tag of the body, whose surfaces are to be clasified.
+
+    Returns
+    -------
+    surfs : list
+        Contains the dimTags of the surfaces in the top base,
+        the bottom walls, the side walls, the top edge, and
+        the bottom edge.

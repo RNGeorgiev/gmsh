@@ -1,0 +1,13 @@
+    Applies a physical group to each surface depending on
+    its orientation. For details see q2d.get_walls.
+
+    Parameters
+    ----------
+    model : class
+        Model, containing the body.
+    vol : int
+        Volume tag of the body, whose surfaces are clasified.
+
+    Returns
+    -------
+    None

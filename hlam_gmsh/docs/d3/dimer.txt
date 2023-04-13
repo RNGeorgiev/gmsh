@@ -1,0 +1,26 @@
+	Generates a dimer comprising a large sphere of radius `k` * `rS`
+    and a small sphere of radius `rS` connected via a cylinder of
+    length `cyl`[0] and radius `cyl`[1]. The large sphere is centered
+    at (0, 0, 0). The cylinder's axis is parallel to the x-axis.
+    Optionally, meshes the model, writes the mesh, and visualizes is.
+
+    Parameters
+    ----------
+    k : float
+        Ratio of the two sphere radii.
+    rS : float, default=0.56
+        Radius of the smaller sphere.
+    cyl: list, default=[1.85, 0.20]
+        [Length, Radius] of the connecting cylinder.
+    ls : float or list, default=0
+        If `ls` is a float it sets the maximum mesh size. If `ls` is
+        a list, containing a float and a string, sets the maximum
+        element size to the float and exports a GMSH 2.2 *.msh file
+        using string as name.
+    viz : bool, default=False
+        A flag controlling visualisation.
+
+    Returns
+    -------
+    dimer : int
+        Volume tag of the dimer.

@@ -1,0 +1,32 @@
+    Shorthand to evaluate the function `f` on surfaces `surfs`, using
+    scaled coordinates [`x0`, `y0`], each spanning [0, 1]. The function
+    `f` is determined through key words:
+    ===================================================================
+    Key word                   | Function `f` evaluted at [`x0`, `y0`]
+    ===================================================================
+    'nv' or 'normal'           | Normal vector
+    -------------------------------------------------------------------
+    '1/r' or 'curvature'       | Curvature
+    -------------------------------------------------------------------
+    'coordinates' or 'xyz'     | XYZ coordinates
+    ===================================================================
+
+    Parameters
+    ----------
+    model : class
+        Model containing the surface to be evaluated.
+    surf : int, tuple, or dimTags
+        Surfaces to be evaluated.
+    f : str
+        Function to be evaluated.
+    x0 : float, default=0.25
+        Scaled x-coordinate of the parametric point at which
+        `f` is evaluated.
+    y0 : float, default=0.25
+        Scaled y-coordinate of the parametric point at which
+        `f` is evaluated.
+
+    Returns
+    -------
+    res : numpy array
+        Array containing the evaluated quantities.

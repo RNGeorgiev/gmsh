@@ -1,0 +1,16 @@
+    Placed in geometric primitive functions to determine whether the
+    primitive (rod, ball, etc.) is a part of a complex object or not.
+    If `model` is not supplied, generates a new geometry (see
+    common.new_geometry).
+
+    Parameters
+    ----------
+    model : class or None
+        The model class instance (if any) the primitive is part of.
+
+    Returns
+    -------
+    model: class
+        Model class.
+    geo : class
+        Geometry class.

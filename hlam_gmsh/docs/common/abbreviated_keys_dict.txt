@@ -1,0 +1,18 @@
+    Shorthand to generate a dictionary, where every value in `vals`
+    has a abbreviated and a full-length key taken from a file
+    /hlam_gmsh/src/dict_keys.txt storing all keys per dictionary
+    generated in the package. Each line of the file has the structure:
+        `dict_name`:(full-length keys)//(abbreviated keys).
+    The keys are comma-separated.
+
+    Parameters
+    ----------
+    vals : list
+        Contains the values to be placed in the dictionary.
+    dict_name : str
+        Must be present at the beginning of any line in dict_keys.txt
+
+    Returns
+    -------
+    dict
+        Dictiory with long and short keys.
