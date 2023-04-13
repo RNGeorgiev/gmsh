@@ -7,6 +7,7 @@ Common functions used by the other modules.
 To-do 2
 
 ## Three-dimensional bodies (d3.py)
+High-level functions to generate dimers and trimers comprising spheres and cylinders.
 
 ## Quasi-two-dimensional bodies (q2d.py)
 
