@@ -1,6 +1,7 @@
 # GMSH geometries for active matter research
-A collection of functions utilizing the GMSH Python API to generate models and meshes of asymmetric
-particles used in quasi-2D flow and active matter studies.
+A collection of functions utilizing the GMSH Python API to generate
+models and meshes of asymmetric particles used in quasi-2D flow and
+active matter studies.
 
 ## Common (common.py)
 Common functions used by the other modules.
@@ -9,7 +10,8 @@ Common functions used by the other modules.
 To-do 2
 
 ## Three-dimensional bodies (d3.py)
-High-level functions to generate dimers and trimers comprising spheres and cylinders.
+High-level functions to generate dimers and trimers comprising
+spheres and cylinders.
 
 ## Quasi-two-dimensional bodies (q2d.py)
 
