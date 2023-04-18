@@ -1,4 +1,4 @@
-	Generates a dimer comprising a large sphere of radius `k` * `rS`
+    Generates a dimer comprising a large sphere of radius `k` * `rS`
     and a small sphere of radius `rS` connected via a cylinder of
     length `cyl`[0] and radius `cyl`[1]. The large sphere is centered
     at (0, 0, 0). The cylinder's axis is parallel to the x-axis.

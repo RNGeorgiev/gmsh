@@ -17,8 +17,12 @@ High-level functions to generate quasi-2D dimers and trimers comprising
 disks and rods with rounded edges.
 
 ## Corrugated walls (wavywall.py)
+High-level functions to generate an corrugated wall, whose flat parts
+have a normal (1, 0, 0).
 
 ## Helical swimmer (helix.py)
+High-level functions to generate an active helix starting and ending
+with spherical caps.
 
 ## Spiral spheroid (spiral.py)
 

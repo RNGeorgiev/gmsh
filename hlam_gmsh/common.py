@@ -102,8 +102,6 @@ def unify_surfs(model, vol):
 
 def meshing(model, ls, vol=-1):
     writing, mesh = False, model.mesh
-    mesh.generate(2)
-    mesh.setOrder(2)
     if isinstance(vol, list): vol = vol[0]
     if isinstance(vol, tuple): vol = vol[1]
     if vol > 0: mesh.setOutwardOrientation(vol)
@@ -112,6 +110,8 @@ def meshing(model, ls, vol=-1):
         if name[-4:] != '.msh': name += '.msh'
     gmsh.option.setNumber("Mesh.MeshSizeMax", ls)
     gmsh.option.setNumber("Mesh.MshFileVersion", 2)
+    mesh.generate(2)
+    mesh.setOrder(2)
     if writing: gmsh.write(name)
     if writing: gmsh.open(name)
     elms = mesh.get_elements(2)[1][0]
