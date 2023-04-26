@@ -1,4 +1,4 @@
-    Creates one physical surfaces, which includes all surfaces in the 
+    Creates one physical surfaces, which includes all surfaces in the
     model.
 
     Parameters

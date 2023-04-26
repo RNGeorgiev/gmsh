@@ -1,0 +1,17 @@
+    Generates a square wave profile with `N` waves.
+
+    Parameters
+    ----------
+    A : float
+        Wave amplitude.
+    N : int
+        Periods.
+    l : float
+        Wavelength.
+
+    Returns
+    -------
+    xs: numpy array
+        x-coordinates of the points defining the wave.
+    ys: numpy array
+        y-coordinates of the points defining the wave.

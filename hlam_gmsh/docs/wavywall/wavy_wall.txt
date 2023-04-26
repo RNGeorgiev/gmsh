@@ -1,0 +1,40 @@
+    Generates a model of a wall of width w (along the y-axis) with
+    corrugations centered at (0, 0, 0). The corrugation shape is set
+    via `waveform`, its amplitude is `A`, the number of periods is `N`
+    and its wavelength is `l`. The corrugation tilt, relative to the
+    y-axis, is `q` degrees. The heights (along the z-axis) of the flat
+    regions above and below the corrugations are set by `above` and
+    `below`. The maximum mesh size in the flat regions is given by `ls`
+    (or `ls`[0] if the mesh is to be exported). The maximum mesh size
+    in the corrugated region is `ratio` times smaller than in the flat
+    part.
+    Optionally, meshes the model, writes the mesh, and visualizes is.
+
+    Parameters
+    ----------
+    waveform : str
+        One of four available shapes:
+        sine, sawtooth, triangle, or square.
+    w : float
+        Plate width.
+    A : float
+        Corrugation amplitude.
+    N : int
+        Number of periods.
+    l : float
+        Wavelength.
+    q : float
+        Tilt angle of the corrugation in degrees.
+    ls : float or list, default=0
+        If `ls` is a float it sets the maximum mesh size in the flat
+        region. If `ls` is a list, containing a float and a string,
+        sets the maximum element size in the flat region to the float
+        and exports a GMSH 2.2 *.msh file using string as name.
+    ratio : float
+        Refinement factor for the corrugated region.
+    viz : bool, default=True
+        A flag controlling visualisation.
+
+    Returns
+    -------
+    None

@@ -10,7 +10,10 @@
         If `ls` is a float it sets the maximum mesh size.
         If `ls` is a list, containing a float and a string, sets the
         maximum element size to the float and exports a GMSH 2.2 *.msh
-        file using string as name.
+        file using the string as name. The default export behaviour to
+        *.msh file can be overridden by explicitly including the
+        extension in the string. For example `ls`=[0.1, 'particle.stp']
+        exports a STEP file.
     vol : int, tuple, or dimTag, default=-1
         Body for which the normals of each element are set to
         point outward.
