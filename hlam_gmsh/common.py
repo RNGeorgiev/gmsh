@@ -100,6 +100,70 @@ def unify_surfs(model, vol):
     model.addPhysicalGroup(2, surfs[:, 1], -1, 'Surface')
     return
 
+def geo_centers(obj, densities=[]):
+    com = gmsh.model.occ.get_center_of_mass
+    mass = gmsh.model.occ.get_mass
+    bounds = gmsh.model.get_boundary
+    c_mass, massT = [], []
+    if obj[0][0] == 2: surfs = obj
+    if obj[0][0] == 3:
+        if not len(densities): densities = len(obj) * [1]
+        densities = np.array(densities)
+        centers = np.array([com(*i) for i in obj])
+        weights = densities * [mass(*i) for i in obj]
+        massT = weights.sum()
+        c_mass = (weights * centers.T).sum(1) / massT
+        surfs = list(map(tuple, np.abs(bounds(obj))))
+    centers = np.array([com(*i) for i in surfs])
+    weights = [mass(*i) for i in surfs]
+    areaT = sum(weights)
+    c_surf = (weights * centers.T).sum(1) / areaT
+    return c_mass, massT, c_surf, areaT
+
+def mesh_quality(mesh):
+    if type(mesh) is str:
+        model, _, _ = new_geometry()
+        gmsh.open(mesh)
+        mesh = model.mesh
+    el_qual = 'Element quality ('
+    es = mesh.get_elements(2)[1][0]
+    nPs = len(mesh.get_nodes()[1])//3
+    stat = ['mean),', 'SD),', 'worst).']
+    qs = mesh.get_element_qualities
+    msg = f'Mesh: {nPs} points in {len(es)} elements.'
+    q0s = np.array([qs(es, i) for i in ['minSICN', 'gamma']])
+    qs = np.transpose([q0s.mean(1), q0s.std(1), q0s.min(1)])
+    for i,j in zip(['minSICN','gamma'], qs):
+        dat = ' '.join([f'{j:.2f} ({i}'  for i,j in zip(stat, j)])
+        print(f'{el_qual}{i}): {dat}')
+    fig, axs = plt.subplots(1, 2, sharey=True, figsize=(10, 4))
+    plt.subplots_adjust(wspace=0.05)
+    xlabels = [f'{el_qual}{k})' for k in ['minSICN', 'gamma']]
+    [i.set_xlabel(j) for i,j in zip(axs, xlabels)]
+    [i.hist(j, 25) for i,j in zip(axs, q0s)]
+    axs[0].set_ylabel(f'Count (total: {len(es)})')
+    return
+
+def is_watertight(mesh, viz=False):
+    if type(mesh) is str:
+        ps, es = basic_read(mesh)
+    else:
+        ps = mesh.get_nodes()[1].reshape(-1, 3)
+        es = mesh.get_elements(2)[2][0].reshape(-1, 6) - 1
+    flatTris = [[0, 3, 5], [1, 4, 3], [2, 5, 4], [3, 4, 5]]
+    flatTris = es[:, flatTris].reshape(-1, 3)
+    trim = trimesh.Trimesh(ps, flatTris)
+    chi = trim.euler_number
+    flag = ' ' if trim.is_watertight else ' not '
+    if not trim.is_watertight: viz = True
+    print(f'Mesh is{flag}watertight!')
+    print(f'Genus (holes): {1 - chi // 2}')
+    if viz:
+        trimesh.repair.broken_faces(trim, color=[255, 0, 0, 255])
+        a = trimesh.scene.scene.Scene(trim)
+        a.show('gl', smooth=True, resolution=(900, 900))
+    return
+
 def meshing(model, ls, vol=-1):
     writing, mesh = False, model.mesh
     if isinstance(vol, list): vol = vol[0]
@@ -107,47 +171,21 @@ def meshing(model, ls, vol=-1):
     if vol > 0: mesh.setOutwardOrientation(vol)
     if isinstance(ls, list):
         ls, name, writing = *ls, True
-        if name[-4:] != '.msh': name += '.msh'
+        if name[-4] != '.': name += '.msh'
     gmsh.option.setNumber("Mesh.MeshSizeMax", ls)
     gmsh.option.setNumber("Mesh.MshFileVersion", 2)
     mesh.generate(2)
     mesh.setOrder(2)
     if writing: gmsh.write(name)
-    if writing: gmsh.open(name)
-    elms = mesh.get_elements(2)[1][0]
-    ps = mesh.get_nodes()[1].reshape(-1, 3)
-    msg = f'Mesh: {len(ps)} points in {len(ps)} elements.'
-    stat = ['mean),','SD),','worst).']
-    for k in ['minSICN','gamma']:
-        es = mesh.get_element_qualities(elms, k)
-        qs = np.round([es.mean(), es.std(), es.min()], 2)
-        dat = ' '.join([f'{j} ({i}'  for i,j in zip(stat, qs)])
-        print(f'Element quality ({k}): ' + dat)
-        plt.figure()
-        plt.hist(es, 25)
-        plt.xlabel(f'Element quality ({k})')
-        plt.ylabel(f'Count (total: {len(es)})')
-    if writing:
-        ps, elms = basic_read(name)
-    else:
-        elms = mesh.get_elements(2)[2][0].reshape(-1, 6) - 1
-    flatTris = [[0, 3, 5], [1, 4, 3], [2, 5, 4], [3, 4, 5]]
-    flatTris = elms[:, flatTris].reshape(-1, 3)
-    trim = trimesh.Trimesh(ps, flatTris)
-    chi = trim.euler_number
-    flag = ' ' if trim.is_watertight else ' not '
-    print(f'Mesh is{flag}watertight!')
-    print(f'Genus (holes): {1 - chi // 2}')
-    if not trim.is_watertight:
-        trimesh.repair.broken_faces(trim, color=[255, 0, 0, 255])
-        a = trimesh.scene.scene.Scene(trim)
-        a.show('gl', smooth=True, resolution=(750, 750))
+    mesh_quality(mesh)
+    is_watertight(mesh)
     return
 
 ## Docstrings for functions in this module ###
 funcs = [abbreviated_keys_dict, restart_GMSH, new_geometry]
 funcs.extend([check_CAD, is_part_of, vis, eval_on_surf])
-funcs.extend([entities_in_vol, meshing])
+funcs.extend([entities_in_vol, unify_surfs, geo_centers])
+funcs.extend([mesh_quality, is_watertight, meshing])
 path = os.path.join(PATH[0], 'docs', PATH[1][:-3], '')
 for i in funcs:
     with open(path + i.__name__ + '.txt', 'r') as f:
