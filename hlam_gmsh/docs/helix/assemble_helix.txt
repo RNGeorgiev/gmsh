@@ -1,0 +1,19 @@
+    Assembles all chunks and caps and fuses all faces together. Also,
+    re-maps the active and passive surfaces of the helix depending on
+    the coverage.
+
+    Parameters
+    ----------
+    model : class
+        Model class of the helix.
+    spring : list
+        Contains lists of dimTags of the active and passive parts of
+        the helix, as output by end_cap.
+    xi : float
+        Surface coverage.
+
+    Returns
+    -------
+    helix : list
+        Contains lists of dimTags of the active and passive surfaces,
+        comprising the helix.

@@ -1,0 +1,15 @@
+    Computes the rotation angles about the x-, y-, and z- axes
+    needed to align v1 to v2. An identity matrix of size 3 is
+    concatinated horizontally with the resulting column vector.
+
+    Parameters
+    ----------
+    v1 : list or numpy array
+        Vector to be rotated.
+    v2 : list or numpy array
+        Vector, with which v1 is to align.
+
+    Returns
+    -------
+    rotM : 4-by-3 numpy array
+        Resulting rotational matrix.

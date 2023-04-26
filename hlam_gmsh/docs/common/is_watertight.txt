@@ -1,0 +1,18 @@
+    Checks if the supplied mesh (either file path or gmsh.model.mesh
+    class) is watertight by making sure every edge is included in two
+    faces (see the trimesh documentation for more information).
+
+    Parameters
+    ----------
+    mesh : str or class
+        Mesh object. If `mesh` is a string, builds a new geometry and
+        loads a file into GMSH using `mesh` as file path. Otherwise,
+        expects `mesh` to be a gmsh.model.mesh class
+    viz : bool, default=False
+        Visualizes the mesh with pyglet. If the supplied mesh is not
+        watertight overwrites `viz` and displays the mesh with holes
+        colored in red.
+
+    Returns
+    -------
+    None

@@ -1,0 +1,24 @@
+    Initializes the model, geometry, and opts classes. Also,
+    generates P number of points along a helical path, which are later
+    used to construct Spline curves for extrusion.
+
+    Parameters
+    ----------
+    turns : list or int
+        Determines how many periods are made before the activity
+        switches.
+    R : float
+        Distance from the helix centerline to the center of the tube.
+    l : float
+        Helical pitch.
+
+    Returns
+    -------
+    model : class
+        Model class of the helix.
+    xyz : P-by-3 numpy array
+        Coordinates of the guide points.
+    ps : list
+        Point tags of the guide points.
+    ranges : list
+        The tags of the start and end point for each helical chunk.

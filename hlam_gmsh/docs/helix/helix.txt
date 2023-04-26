@@ -1,0 +1,45 @@
+    Generates a model of a helix of radius `R` and pitch `l` having an
+    active strip. The helix has a tube radius of `r` and comprises
+    sum(`turns`) windings. It begins and ends with spherical caps. The
+    starting cap is centered at (R, 0, 0). The size of the strip is
+    defined via `xi`, which takes values from 0 to 1, where 0 denotes
+    an entirely passive starting cap and 1 corresponds to an entirely
+    active starting cap. Fractional activities make the cap azimuth
+    [-pi * act, pi * act] active, where 0 is parallel to the x-axis.
+    The strip's orientation can be controlled via q. If more than one
+    value is passed to `turns` the activity switches after `turns`[0]
+    periods. The first `turns`[0] periods the helix adopts the same
+    activity as the starting cap. The end cap adopts the activity of
+    the last portion of the helix.
+    Optionally, meshes the model, writes the mesh, and visualizes is.
+
+    Parameters
+    ----------
+    turns : list
+        Number of periods made before the activity switches.
+    xi : float
+        Fraction of the helix which is active.
+    R : float
+        Distance from the helix centerline to the center of the tube.
+    r : float
+        Helical tube radius.
+    l : float, default=1
+        Helical pitch.
+    q : float, default=0
+        Orientation of the active strip.
+    ls : float or list, default=0
+        If `ls` is a float it sets the maximum mesh size.
+        If `ls` is a list, containing a float and a string, sets the
+        maximum element size to the float and exports a GMSH 2.2 *.msh
+        file using the string as name. The default export behaviour to
+        *.msh file can be overridden by explicitly including the
+        extension in the string. For example `ls`=[0.1, 'particle.stp']
+        exports a STEP file.
+    viz : bool, default=False
+        A flag controlling visualisation.
+
+    Returns
+    -------
+    helix : list
+        Contains lists of dimTags of the active and passive surfaces,
+        comprising the helix, as output by assemble_helix.

@@ -1,0 +1,15 @@
+    Evaluates the quality of all elements in the supplied mesh (either
+    a filepath  or a gmsh.model.mesh class) using two metrics, minSICN
+    and gamma, builds histograms for each one, and prints basic quality
+    statistics such as mean, st. deviation, and worst.
+
+    Parameters
+    ----------
+    mesh : str or class
+        Mesh object. If `mesh` is a string, builds a new geometry and
+        loads a file into GMSH using `mesh` as file path. Otherwise,
+        expects `mesh` to be a gmsh.model.mesh class.
+
+    Returns
+    -------
+    None

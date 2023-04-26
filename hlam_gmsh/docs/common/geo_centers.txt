@@ -1,0 +1,21 @@
+    Computes the surface centroid and (if applicable) the center of
+    mass of `obj` using GMSH's OpenCASCADE kernel.
+
+    Parameters
+    ----------
+    obj : dimTags
+        Body or surface, for which the geometric centers are computed.
+    densities : list, default=[]
+        Contains the density for each volume part in `obj`. If empty,
+        assumes all parts have a density of unity.
+
+    Returns
+    -------
+    c_mass: 1-by-3 numpy array
+        Center of mass of `obj`.
+    massT: float
+        Total mass of `obj`.
+    c_surf: 1-by-3 numpy array
+        Surface centroid of `obj`.
+    areaT: float
+        Total surface area of `obj`.

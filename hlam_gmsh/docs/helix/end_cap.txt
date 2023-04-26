@@ -1,0 +1,28 @@
+    Generates the ending cap of the helix which adopts the activity of
+    the preceding chunk of the helix.
+
+    Parameters
+    ----------
+    model : class
+        Model class of the helix.
+    turns : list or int
+        Determines how many periods are made before the activity
+        switches.
+    xyz : numpy array
+        Coordinates of the guide points.
+   r : float
+        Helical tube/cap radius.
+    xi : float
+        Fraction of the helix/cap which is active.
+    q : float
+        Orientation of the active strip in degrees.
+    spring : list
+        Contains lists of dimTags of the active and passive parts of
+        the helix, as output by chunk.
+
+    Returns
+    -------
+    spring : list
+        Contains updated lists of dimTags of the:
+        1) active surfaces,
+        2) passive surfaces.

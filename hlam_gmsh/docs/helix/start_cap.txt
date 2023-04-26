@@ -1,0 +1,23 @@
+    Generates the starting cap of the helix.
+
+    Parameters
+    ----------
+    model : class
+        Model class of the helix.
+    xyz : numpy array
+        Coordinates of the guide points
+    r : float
+        Helical tube/cap radius.
+    xi : float
+        Fraction of the helix/cap which is active.
+    q : float
+        Orientation of the active strip in degrees.
+
+    Returns
+    -------
+    spring : list
+        Contains lists of dimTags for the:
+        1) active surface to be extruded along the next Spline chunk,
+        2) active surface of the cap,
+        4) passive surface to be extruded along the next Spline chunk,
+        5) passive surface of the cap.

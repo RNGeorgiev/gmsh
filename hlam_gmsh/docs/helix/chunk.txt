@@ -1,0 +1,28 @@
+    Generates a chunk of the helix. Assumes the activity does not
+    switch across different chunks, i.e. an active surface is extruded
+    to produce an active volume. This is corrected (if necessary) once
+    all chunks and the end cap are generated.
+
+    Parameters
+    ----------
+    model : class
+        Model class of the helix.
+    ps : list
+        Tags of the guide points.
+    r : float
+        Helical tube radius.
+    rng : tuple
+        A range of point tags along which the active  and passive
+        surfaces are extruded.
+    spring : list
+        Contains lists of dimTags of the active and passive
+        parts of the helix, as output by either start_cap or chunk.
+
+    Returns
+    -------
+    spring : list
+        Contains updated lists of dimTags of the:
+        1) active surface to be extruded along the next Spline chunk,
+        2) active surfaces,
+        3) passive surface to be extruded along the next Spline chunk,
+        4) passive surfaces.
