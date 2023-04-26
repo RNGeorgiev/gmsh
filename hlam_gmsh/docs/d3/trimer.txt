@@ -24,10 +24,13 @@
         Determines if the surfaces of the trimer should be placed in a
         physical group 'Surface'. For details, see common.unify_surfs
     ls : float or list, default=0
-        If `ls` is a float it sets the maximum mesh size. If `ls` is
-        a list, containing a float and a string, sets the maximum
-        element size to the float and exports a GMSH 2.2 *.msh file
-        using string as name.
+        If `ls` is a float it sets the maximum mesh size.
+        If `ls` is a list, containing a float and a string, sets the
+        maximum element size to the float and exports a GMSH 2.2 *.msh
+        file using the string as name. The default export behaviour to
+        *.msh file can be overridden by explicitly including the
+        extension in the string. For example `ls`=[0.1, 'particle.stp']
+        exports a STEP file.
     viz : bool, default=False
         A flag controlling visualisation.
 
